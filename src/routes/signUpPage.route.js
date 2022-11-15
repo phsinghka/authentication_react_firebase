@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import FormField from '../components/formField.component';
 import {
   signUpWithEmailAndPass,
@@ -48,6 +49,7 @@ const SignUpPage = () => {
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (url) => {
             await createUserDocumentwithAuth(user, { url });
+            goToSignIn();
           });
         }
       );
@@ -57,43 +59,55 @@ const SignUpPage = () => {
       console.log(error);
     }
   };
+
+  const navigate = useNavigate();
+
+  const goToSignIn = () => {
+    navigate('/signin');
+  };
   return (
     <div>
-      <h1>Sign Up Page</h1>
       <form onSubmit={handleSubmit}>
-        <FormField
-          label='Email'
-          type='email'
-          required
-          onChange={handleChange}
-          value={email}
-          name='email'
-        />
-        <FormField
-          label='Password'
-          type='password'
-          required
-          onChange={handleChange}
-          value={password}
-          name='password'
-        />
-        <FormField
-          label='Confirm Password'
-          type='password'
-          required
-          onChange={handleChange}
-          value={cnfPassword}
-          name='cnfPassword'
-        />
-        <FormField
-          label='Profile Picture'
-          type='file'
-          accept='image/*'
-          required
-          onChange={handleChange}
-          name='imgUrl'
-        />
-        <button>Sign Up</button>
+        <div className='container'>
+          <h1>Sign Up Page</h1>
+
+          <FormField
+            label='Email'
+            type='email'
+            required
+            onChange={handleChange}
+            value={email}
+            name='email'
+          />
+          <FormField
+            label='Password'
+            type='password'
+            required
+            onChange={handleChange}
+            value={password}
+            name='password'
+          />
+          <FormField
+            label='Confirm Password'
+            type='password'
+            required
+            onChange={handleChange}
+            value={cnfPassword}
+            name='cnfPassword'
+          />
+          <FormField
+            label='Profile Picture'
+            type='file'
+            accept='image/*'
+            required
+            onChange={handleChange}
+            name='imgUrl'
+          />
+          <button>Sign Up</button>
+          <button type='button' onClick={goToSignIn}>
+            Go To Sign In Instead ?
+          </button>
+        </div>
       </form>
     </div>
   );

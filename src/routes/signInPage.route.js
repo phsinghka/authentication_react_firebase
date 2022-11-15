@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import FormField from '../components/formField.component';
 import { logInWithEmailAndPass } from '../utils/firebase.utils';
 
@@ -10,6 +11,15 @@ const defaultFormCase = {
 const SignInPage = () => {
   const [formFields, setFormFields] = useState(defaultFormCase);
   const { email, password } = formFields;
+  const navigate = useNavigate();
+
+  const goToSignUp = () => {
+    navigate('/signup');
+  };
+
+  const goToProfile = () => {
+    navigate('/profile');
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -23,6 +33,7 @@ const SignInPage = () => {
     try {
       const { user } = await logInWithEmailAndPass(email, password);
       console.log(user);
+      goToProfile();
       setFormFields(defaultFormCase);
     } catch (error) {
       switch (error.code) {
@@ -39,26 +50,31 @@ const SignInPage = () => {
   };
   return (
     <div>
-      <h1>Sign In Page</h1>
       <form onSubmit={handleSubmit}>
-        <FormField
-          label='Email'
-          type='email'
-          required
-          onChange={handleChange}
-          value={email}
-          name='email'
-        />
-        <FormField
-          label='Password'
-          type='password'
-          required
-          onChange={handleChange}
-          value={password}
-          name='password'
-        />
+        <div className='container'>
+          <h1>Sign In Page</h1>
+          <FormField
+            label='Email'
+            type='email'
+            required
+            onChange={handleChange}
+            value={email}
+            name='email'
+          />
+          <FormField
+            label='Password'
+            type='password'
+            required
+            onChange={handleChange}
+            value={password}
+            name='password'
+          />
 
-        <button>Sign In</button>
+          <button>Sign In</button>
+          <button type='button' onClick={goToSignUp}>
+            Go To Sign Up Instead ?
+          </button>
+        </div>
       </form>
     </div>
   );

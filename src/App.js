@@ -8,18 +8,11 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 
 function App() {
-  // const navigate = useNavigate();
-  // const { currentUser } = useContext(UserContext);
-  // const goToSignIn = () => {
-  //   navigate('/signin');
-  // };
-  // const goToSignUp = () => {
-  //   navigate('/signup');
-  // };
   return (
     <div className='App'>
       <Routes>
-        <Route index element={<SignUpPage />} />
+        <Route path='/signup' element={<SignUpPage />} />
+        <Route path='/' element={<SignUpPage />} />
         <Route path='/signin' element={<SignInPage />} />
         <Route path='/profile' element={<ProfilePage />} />
       </Routes>
