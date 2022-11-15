@@ -32,7 +32,6 @@ const SignInPage = () => {
     const {name, value} = event.target;
 
     setFormFields({...formFields, [name]: value});
-    console.log(formFields);
   };
 
   /**
@@ -45,7 +44,6 @@ const SignInPage = () => {
     event.preventDefault();
     try {
       const {user} = await logInWithEmailAndPass(email, password);
-      console.log(user);
       goToProfile();
       setFormFields(defaultFormCase);
     } catch (error) {
@@ -57,7 +55,7 @@ const SignInPage = () => {
           alert('No user associated with this email');
           break;
         default:
-          console.log(error);
+          console.error(error);
       }
     }
   };

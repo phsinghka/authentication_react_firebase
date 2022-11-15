@@ -106,7 +106,7 @@ export const getUserDataWithAuth = async (currentUser) => {
       alert('User does not exist');
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 

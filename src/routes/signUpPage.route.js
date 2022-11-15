@@ -29,7 +29,6 @@ const SignUpPage = () => {
 
   const handleChange = (event) => {
     const {name, value} = event.target;
-    console.log(event);
 
     setFormFields({...formFields, [name]: value});
     if (event.target.files !== null) {
