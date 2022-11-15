@@ -1,10 +1,7 @@
 import SignUpPage from './routes/signUpPage.route';
 import SignInPage from './routes/signInPage.route';
 import ProfilePage from './routes/profilePage.route';
-import { Route, Routes } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
-// import { useContext } from 'react';
-// import { UserContext } from './context/user.context';
+import {Route, Routes} from 'react-router-dom';
 import './App.css';
 
 function App() {
@@ -16,7 +13,6 @@ function App() {
         <Route path='/signin' element={<SignInPage />} />
         <Route path='/profile' element={<ProfilePage />} />
       </Routes>
-      {/* {currentUser ? goToSignIn() : goToSignUp()} */}
     </div>
   );
 }

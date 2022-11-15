@@ -1,4 +1,4 @@
-const FormField = ({ label, ...inputProps }) => {
+const FormField = ({label, ...inputProps}) => {
   return (
     <div>
       <label>{label}</label>

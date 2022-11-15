@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import {initializeApp} from 'firebase/app';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -7,9 +7,9 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+import {getFirestore, doc, getDoc, setDoc} from 'firebase/firestore';
 
-import { getStorage } from 'firebase/storage';
+import {getStorage} from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAGqzuihwoabTwQVy9vLkb7v9_3ZTv-YfI',
@@ -20,16 +20,32 @@ const firebaseConfig = {
   appId: '1:437511898156:web:c094271bc909c3cfefbd89',
 };
 
-// Initialize Firebase
+/**
+* Initialize Firebase
+*/
 const app = initializeApp(firebaseConfig);
 
 export const db = getFirestore();
 
 export const auth = getAuth();
 
+/**
+* Logs in user with valid email and password
+* @param {string} email - Email Address
+* @param {string} password - Password
+* @returns {Object} - User object from Firebase Authentication
+*/
+
 export const logInWithEmailAndPass = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
+
+/**
+* Create user with valid email and password
+* @param {string} email - Email Address
+* @param {string} password - Password
+* @returns {Object} - User object from Firebase Authentication
+*/
 
 export const signUpWithEmailAndPass = (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password);
@@ -41,6 +57,13 @@ export const logout = () => {
 
 export const storage = getStorage(app);
 
+/**
+* Create user document in firestore
+* @param {Object} userAuth - User authentication object given by signUp method
+* @param {Object} additionalInfo - Any other info can be passed to object
+* Check if user already exists then make the user
+*/
+
 export const createUserDocumentwithAuth = async (userAuth, additionalInfo) => {
   if (!userAuth) return;
   const userDocRef = doc(db, 'users', userAuth.uid);
@@ -48,12 +71,11 @@ export const createUserDocumentwithAuth = async (userAuth, additionalInfo) => {
   const userSnapShot = await getDoc(userDocRef);
 
   if (!userSnapShot.exists()) {
-    const { displayName, email } = userAuth;
+    const {email} = userAuth;
     const createdAt = new Date();
 
     try {
       await setDoc(userDocRef, {
-        displayName,
         email,
         createdAt,
         ...additionalInfo,
@@ -65,6 +87,11 @@ export const createUserDocumentwithAuth = async (userAuth, additionalInfo) => {
 
   return userDocRef;
 };
+
+/**
+* Gets user document from firestore
+* @param {Object} currentUser - User object saved in UserContext
+*/
 
 export const getUserDataWithAuth = async (currentUser) => {
   if (!currentUser) return;

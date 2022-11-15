@@ -1,7 +1,7 @@
-import { getUserDataWithAuth, logout } from '../utils/firebase.utils';
-import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../context/user.context';
+import {getUserDataWithAuth, logout} from '../utils/firebase.utils';
+import {useContext, useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {UserContext} from '../context/user.context';
 
 const defaultProfilePage = {
   email: '',
@@ -10,8 +10,8 @@ const defaultProfilePage = {
 
 const ProfilePage = () => {
   const [profileInfo, setProfileInfo] = useState(defaultProfilePage);
-  const { currentUser } = useContext(UserContext);
-  const { email, url } = profileInfo;
+  const {currentUser} = useContext(UserContext);
+  const {email, url} = profileInfo;
   const navigate = useNavigate();
 
   const goToSignIn = () => {
@@ -23,8 +23,8 @@ const ProfilePage = () => {
       goToSignIn();
     } else {
       const getDataFromUID = async () => {
-        const { email, url } = await getUserDataWithAuth(currentUser);
-        setProfileInfo({ email, url });
+        const {email, url} = await getUserDataWithAuth(currentUser);
+        setProfileInfo({email, url});
       };
       getDataFromUID();
     }
